@@ -1,0 +1,31 @@
+#PLAYBOOK 1: SSH Brute-Force & Credential Stuffing
+Framework: NIST SP 800-61 Rev. 2
+
+##DETECTION SIGNALS:
+- Rapid spikes in failed authentication events (e.g. "Failed password for invalid user")
+- Unusual or foreign source IP addresses
+- Sudden off-hours login attempts
+- High volume of auth failures from a single IP in short time window
+
+##ANALYSIS:
+- Confirm brute-force by checking frequency of failed attempts
+- Identify targeted usernames and source IP
+- Determine if any attempts succeeded (check for successful login after failures)
+- Check if attack is credential stuffing (many usernames) or brute-force (one username, many passwords)
+
+##CONTAINMENT:
+- Extract the offensive IP address
+- Block traffic with: iptables -A INPUT -s <IP> -j DROP
+- If multiple IPs, consider blocking the subnet
+- Disable the targeted account temporarily if a breach is suspected
+
+##ERADICATION:
+- Force a password reset on all targeted accounts
+- Enforce SSH key-only authentication (disable password auth in sshd_config)
+- Set PasswordAuthentication no in /etc/ssh/sshd_config
+- Restart SSH service: systemctl restart sshd
+
+##POST-INCIDENT:
+- Review all successful logins during the attack window
+- Enable fail2ban to automate future IP blocking
+- Document the incident and affected accounts

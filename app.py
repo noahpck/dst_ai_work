@@ -18,8 +18,8 @@ vectordb = Chroma(
 
 #testing different model
 
-llm = ChatOllama(model="phi3:mini")
-def main(query: str):
+llm = ChatOllama(model="llama3.1:8b")
+def logs_output(query: str):
 
     results = vectordb.similarity_search(query, k=3) 
 

@@ -1,0 +1,33 @@
+#PLAYBOOK 3: Unauthorized Scheduled Task / Persistence Mechanism
+Framework: NIST SP 800-61 Rev. 2
+
+##DETECTION SIGNALS:
+- New unrecognized script added to /etc/cron.d/ or /etc/crontab
+- User executing "crontab -e" unexpectedly
+- Windows Event ID 4698 (scheduled task created)
+- Encoded or obfuscated baseline script running on a schedule
+- Linux syslog or audit logs showing cron job edits
+
+##ANALYSIS:
+- Parse the cron syntax to determine how often the malicious script triggers
+- Identify the user account that created the task
+- Decode any obfuscated script content (e.g. base64)
+- Determine what the script does and what data it accesses or exfiltrates
+
+##CONTAINMENT:
+- Immediately stop the cron daemon: systemctl stop cron
+- Kill the active PID associated with the script: kill -9 <PID>
+- Isolate the host from the local network to prevent lateral movement
+- Preserve a copy of the malicious script for forensic analysis
+
+##ERADICATION:
+- Delete the malicious cron file from /etc/cron.d/ or crontab
+- Audit the compromised user's permissions and access rights
+- Trace how the file got onto the machine (review web server logs, SSH logins)
+- Check for additional persistence mechanisms (startup scripts, systemd services)
+
+##POST-INCIDENT:
+- Review all cron jobs across all users: crontab -l for each user
+- Implement file integrity monitoring on /etc/cron.d/ and related directories
+- Enforce principle of least privilege on cron access
+- Document timeline and attack vector

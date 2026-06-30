@@ -1,0 +1,31 @@
+#PLAYBOOK 2: Network Port Scanning & Reconnaissance
+Framework: NIST SP 800-61 Rev. 2
+
+##DETECTION SIGNALS:
+- Single external IP hitting dozens of sequential ports (e.g. 22, 80, 443, 8080, 3389)
+- Scanning occurring within a few seconds across your network space
+- Firewall logs showing repeated connection attempts across multiple ports
+- Alerts from pfSense, ufw, or Zeek/Bro connection logs
+
+##ANALYSIS:
+- Identify if it is a horizontal scan (one port, many hosts) or vertical scan (one host, many ports)
+- Extract the scanning IP and timestamp range
+- Determine which ports were probed and which responded
+- Assess whether any open ports were successfully connected to
+
+##CONTAINMENT:
+- Generate a temporary perimeter block for the scanning IP
+- iptables -A INPUT -s <IP> -j DROP
+- Alert network team to monitor for follow-up exploitation attempts
+- If scan was successful on any port, treat as potential intrusion
+
+##ERADICATION/RECOVERY:
+- Verify all listening services on discovered open ports are fully patched
+- Hide sensitive services behind a VPN or firewall ACL
+- Close any unnecessary open ports
+- Review and tighten firewall ruleset
+
+##POST-INCIDENT:
+- Document which ports are exposed and why
+- Consider deploying a honeypot to detect future reconnaissance
+- Enable port scan detection rules in IDS/IPS

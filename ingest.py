@@ -50,7 +50,7 @@ if not doc_path.exists():
     raise FileNotFoundError(f"Directory '{document_directory}' does not exist.")
 
 
-for file in doc_path.glob("*.md"):   #this checks files with .md extension
+for file in doc_path.glob("*.txt"):   #this checks files with .txt extension
 
     loader = TextLoader(str(file), encoding="utf-8")
     raw_document = loader.load()[0]
