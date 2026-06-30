@@ -2,22 +2,24 @@ import os
 from langchain_chroma import Chroma
 from langchain_ollama import OllamaEmbeddings, ChatOllama
 from dotenv import load_dotenv
+import ollama
 
+load_dotenv()
+vector_database = os.getenv("VECTOR_DB")
+embedding_model = os.getenv("EMBEDDING_MODEL")
 
+embeddings = OllamaEmbeddings(model=embedding_model)   
+vectordb = Chroma(
+    persist_directory=vector_database,
+    embedding_function=embeddings,
+)    
 
+#llm = ChatOllama(model="llama3.1:8b")
 
+#testing different model
+
+llm = ChatOllama(model="phi3:mini")
 def main(query: str):
-    load_dotenv()
-    vector_database = os.getenv("VECTOR_DB")
-    embedding_model = os.getenv("EMBEDDING_MODEL")
-
-    embeddings = OllamaEmbeddings(model=embedding_model)   
-    vectordb = Chroma(
-        persist_directory=vector_database,
-        embedding_function=embeddings,
-    )    
-
-    #query = input("Enter your query: ")    
 
     results = vectordb.similarity_search(query, k=3) 
 
@@ -33,7 +35,7 @@ def main(query: str):
     """
     print("Prompt sent to LLM:")
     print(prompt)
-    llm = ChatOllama(model="llama3.1:8b")
+    
     try:
         response = llm.invoke(prompt)  #currently very slow, but works.
         print(response.content)
