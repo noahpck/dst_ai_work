@@ -37,8 +37,7 @@ def logs_output(query: str):
     print(prompt)
     
     try:
-        response = llm.invoke(prompt)  #currently very slow, but works.
-        print(response.content)
+        response = llm.invoke(prompt) 
     except Exception as e:
         print(e)
 
