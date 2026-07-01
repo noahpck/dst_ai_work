@@ -12,7 +12,7 @@ div[data-testid="stTextInput"] {
 
 # Add the project root to Python's path
 sys.path.append(str(Path(__file__).resolve().parent.parent))
-from app import logs_output
+from backend.app import logs_output
 
 image_dir = Path(__file__).resolve().parent.parent / "images"
 
