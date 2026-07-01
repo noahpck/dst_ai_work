@@ -14,10 +14,6 @@ vectordb = Chroma(
     embedding_function=embeddings,
 )    
 
-#llm = ChatOllama(model="llama3.1:8b")
-
-#testing different model
-
 llm = ChatOllama(model="llama3.1:8b")
 def logs_output(query: str):
 
@@ -30,12 +26,7 @@ def logs_output(query: str):
     Playbooks: {context}
 
     Question: {query}
-
-    Answer: 
     """
-    print("Prompt sent to LLM:")
-    print(prompt)
-    
     try:
         response = llm.invoke(prompt) 
     except Exception as e:
