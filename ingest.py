@@ -11,75 +11,77 @@ from langchain_ollama import OllamaEmbeddings
 from langchain_chroma import Chroma
 
 
-#Setting up variables
-load_dotenv()
-document_directory = os.getenv("DOCUMENT_DIR")
-vector_database = os.getenv("VECTOR_DB")
-
-embedding_model = os.getenv("EMBEDDING_MODEL")
-
-chunk_size = int(os.getenv("CHUNK_SIZE"))
-chunk_overlap = int(os.getenv("CHUNK_OVERLAP"))
+def ingest():   #called from within the setup.py script to create the vector database
 
 
+    load_dotenv()
+    document_directory = os.getenv("DOCUMENT_DIR")
+    vector_database = os.getenv("VECTOR_DB")
 
-# Markdown Header Splitter
+    embedding_model = os.getenv("EMBEDDING_MODEL")
 
-headers_to_split_on = [
-    ("#", "Heading 1"),
-    ("##", "Heading 2"),
-    ("###", "Heading 3"),
-]
-
-markdown_splitter = MarkdownHeaderTextSplitter(
-    headers_to_split_on=headers_to_split_on
-)
-
-character_splitter = RecursiveCharacterTextSplitter(
-    chunk_size=chunk_size,
-    chunk_overlap=chunk_overlap,
-)
-
-# Load the playbooks
-
-documents = []
-
-doc_path = Path(document_directory)
-
-if not doc_path.exists():
-    raise FileNotFoundError(f"Directory '{document_directory}' does not exist.")
+    chunk_size = int(os.getenv("CHUNK_SIZE"))
+    chunk_overlap = int(os.getenv("CHUNK_OVERLAP"))
 
 
-for file in doc_path.glob("*.txt"):   #this checks files with .txt extension
 
-    loader = TextLoader(str(file), encoding="utf-8")
-    raw_document = loader.load()[0]
-    header_docs = markdown_splitter.split_text(raw_document.page_content)
-    chunks = character_splitter.split_documents(header_docs)
+    #Header Splitter
 
-    # Add source filename metadata
-    for chunk in chunks:
-        chunk.metadata["source"] = file.name
+    headers_to_split_on = [
+        ("#", "Heading 1"),
+        ("##", "Heading 2"),
+        ("###", "Heading 3"),
+    ]
 
-    documents.extend(chunks)
+    markdown_splitter = MarkdownHeaderTextSplitter(
+        headers_to_split_on=headers_to_split_on
+    )
+
+    character_splitter = RecursiveCharacterTextSplitter(
+        chunk_size=chunk_size,
+        chunk_overlap=chunk_overlap,
+    )
+
+    # Load the playbooks
+
+    documents = []
+
+    doc_path = Path(document_directory)
+
+    if not doc_path.exists():
+        raise FileNotFoundError(f"Directory '{document_directory}' does not exist.")
 
 
-print(f"\nLoaded {len(documents)} document chunks.")
+    for file in doc_path.glob("*.txt"):   #this checks files with .txt extension
+
+        loader = TextLoader(str(file), encoding="utf-8")
+        raw_document = loader.load()[0]
+        header_docs = markdown_splitter.split_text(raw_document.page_content)
+        chunks = character_splitter.split_documents(header_docs)
+
+        # Add source filename metadata
+        for chunk in chunks:
+            chunk.metadata["source"] = file.name
+
+        documents.extend(chunks)
 
 
-# Create Embeddings
+    print(f"\nLoaded {len(documents)} document chunks.")
 
-embeddings = OllamaEmbeddings(
-    model=embedding_model
-)
 
-# Store in ChromaDB
+    # Create Embeddings
 
-vectordb = Chroma.from_documents(
-    documents=documents,
-    embedding=embeddings,
-    persist_directory=vector_database,
-)
+    embeddings = OllamaEmbeddings(
+        model=embedding_model
+    )
 
-print("\nVector database created successfully.")
-print(f"Stored at: {vector_database}")
+    # Store in ChromaDB
+
+    vectordb = Chroma.from_documents(
+        documents=documents,
+        embedding=embeddings,
+        persist_directory=vector_database,
+    )
+
+    print("\nVector database created successfully.")
+    print(f"Stored at: {vector_database}")
