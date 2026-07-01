@@ -18,7 +18,7 @@ image_dir = Path(__file__).resolve().parent.parent / "images"
 
 with st.container(horizontal=True):
     st.image(image_dir / "logo.jpg", width=50)
-    st.header("DST AI Assitant", divider=True, anchor=False)
+    st.header("DST AI Assistant", divider=True, anchor=False)
 
 logs = st.text_area("Logs:")
 
