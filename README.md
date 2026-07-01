@@ -1,4 +1,4 @@
-# dst_ai_work
+# Local RAG-Powered Incident Response Assistant
 
 ## Installation
 

@@ -22,11 +22,9 @@ with st.container(horizontal=True):
 
 logs = st.text_area("Logs:")
 
-
 # Submit button
 if st.button("Submit"):
     with st.spinner("Processing response, please wait..."):
         output = logs_output(logs)
-    
     st.write(output)
     
