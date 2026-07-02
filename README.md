@@ -32,7 +32,7 @@ source .venv/bin/activate
 pip install -r requirements.txt
 ```
 
-6. Set up the vector database:
+6. Set up the vector database and LLM models:
 
 ```bash
 python setup.py
