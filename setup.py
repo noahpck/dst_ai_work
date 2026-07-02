@@ -5,6 +5,7 @@ import ollama
 import shutil
 import subprocess
 import sys
+import time 
 
 def install_curl():
     if shutil.which("curl"):
@@ -64,9 +65,12 @@ def check_ollama_models_installed():
     installed = {m.model for m in ollama.list().models}
     if "llama3.1:8b" not in installed:
         ollama.pull("llama3.1:8b")
+        print("Pulled llama3.1:8b model.")
+        
 
     if "nomic-embed-text:latest" not in installed:
         ollama.pull("nomic-embed-text:latest")
+        print("Pulled nomic-embed-text:latest model.")
     
     else:
         print("Ollama models are already installed.")
@@ -82,5 +86,6 @@ def create_vector_database():
 install_curl()
 install_ollama()
 start_ollama()
+time.sleep(2)
 check_ollama_models_installed()  # Check if Ollama models are installed
 create_vector_database()  # Create the vector database if it doesn't exist
