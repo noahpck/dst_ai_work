@@ -20,7 +20,7 @@ with st.container(horizontal=True):
     st.image(image_dir / "logo.jpg", width=50)
     st.header("DST AI Assistant", divider=True, anchor=False)
 
-logs = st.text_area("Logs:")
+logs = st.text_area("Provide logs or ask questions for the agent: ")
 
 # Submit button
 if st.button("Submit"):

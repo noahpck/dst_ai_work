@@ -86,7 +86,7 @@ def create_vector_database():
 def start_streamlit():
     try:
         subprocess.run(
-            ["streamlit", "run", "backend/app.py"],
+            ["streamlit", "run", "frontend/app_ui.py"],
             check=True,
             )
         

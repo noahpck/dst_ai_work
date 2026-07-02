@@ -2,7 +2,6 @@
 Framework: NIST SP 800-61 Rev. 2
 
 ## DETECTION SIGNALS:
-
 - User reports a suspicious email requesting credentials, payment, or sensitive information
 - Multiple users receive similar phishing emails within a short period
 - Email contains malicious attachments or links to unfamiliar domains
@@ -11,7 +10,6 @@ Framework: NIST SP 800-61 Rev. 2
 - Security tools detect known phishing indicators or malicious URLs
 
 ## ANALYSIS:
-
 - Identify the sender, recipient(s), subject, and timestamp of the email
 - Examine email headers to verify the true source and identify spoofing
 - Analyze attachments and embedded URLs in a secure sandbox environment
@@ -19,7 +17,6 @@ Framework: NIST SP 800-61 Rev. 2
 - Identify compromised accounts and assess whether lateral phishing or unauthorized mailbox activity occurred
 
 ## CONTAINMENT:
-
 - Quarantine or remove the phishing email from all affected mailboxes
 - Disable or lock compromised user accounts
 - Reset passwords and revoke active authentication sessions
@@ -27,7 +24,6 @@ Framework: NIST SP 800-61 Rev. 2
 - Isolate any endpoint that executed malicious attachments or payloads
 
 ## ERADICATION:
-
 - Remove malware or unauthorized software installed as a result of the phishing attack
 - Delete malicious email rules, forwarding rules, or inbox rules created by the attacker
 - Scan affected systems for persistence mechanisms and additional compromise
@@ -35,7 +31,6 @@ Framework: NIST SP 800-61 Rev. 2
 - Verify that no additional accounts or systems have been compromised
 
 ## POST-INCIDENT:
-
 - Notify affected users and provide guidance on recognizing future phishing attempts
 - Conduct a review of the attack timeline and response effectiveness
 - Update email filtering policies and phishing detection rules based on observed indicators
