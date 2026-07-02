@@ -101,4 +101,5 @@ start_ollama()
 time.sleep(2)
 check_ollama_models_installed()  # Check if Ollama models are installed
 create_vector_database()  # Create the vector database if it doesn't exist
+time.sleep(1) # Wait for a second to ensure everything is set up before starting Streamlit
 start_streamlit()

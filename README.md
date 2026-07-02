@@ -43,11 +43,5 @@ python setup.py
 After the setup script has finished, start the application:
 
 ```bash
-python backend/app.py
-```
-
-Or, if using the Streamlit interface:
-
-```bash
-streamlit run frontend/app_ui.py
+python start.py
 ```

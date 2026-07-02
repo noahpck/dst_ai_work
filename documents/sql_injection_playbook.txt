@@ -1,0 +1,39 @@
+# PLAYBOOK 6: Web Application Attack (SQL Injection)
+Framework: NIST SP 800-61 Rev. 2
+
+## DETECTION SIGNALS:
+- Web server logs contain unusual SQL characters or keywords (e.g., `'`, `UNION`, `SELECT`, `DROP`, `OR 1=1`)
+- Sudden increase in database errors or application exceptions
+- Web Application Firewall (WAF) generates SQL injection alerts
+- Unexpected database queries originating from the web application
+- Unauthorized access to sensitive records or abnormal database activity
+- Multiple requests targeting login forms, search fields, or URL parameters
+
+## ANALYSIS:
+- Identify the vulnerable web application, endpoint, and affected parameters
+- Review web server, application, and database logs to trace the attack
+- Determine whether the attacker successfully executed SQL commands
+- Assess whether sensitive data was accessed, modified, or deleted
+- Identify the source IP addresses and request patterns used during the attack
+- Determine whether additional web application vulnerabilities were exploited
+
+## CONTAINMENT:
+- Block malicious IP addresses using the firewall or Web Application Firewall (WAF)
+- Disable or restrict access to the vulnerable application if necessary
+- Apply temporary input filtering or validation rules
+- Isolate affected servers if unauthorized database access is confirmed
+- Preserve relevant application, web server, and database logs for forensic analysis
+
+## ERADICATION:
+- Patch the vulnerable application code using parameterized queries or prepared statements
+- Remove any malicious database objects, accounts, or unauthorized changes
+- Apply security updates to the web application and supporting software
+- Validate all user input and implement proper output encoding
+- Perform a complete security review to identify similar vulnerabilities throughout the application
+
+## POST-INCIDENT:
+- Review the attack timeline and identify the root cause
+- Conduct a secure code review of the affected application
+- Update Web Application Firewall (WAF) rules based on the observed attack
+- Perform vulnerability scanning and penetration testing before returning the application to production
+- Document indicators of compromise, lessons learned, and recommended security improvements

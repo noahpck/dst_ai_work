@@ -1,0 +1,40 @@
+# PLAYBOOK 5: Distributed Denial-of-Service (DDoS) Attack
+Framework: NIST SP 800-61 Rev. 2
+
+## DETECTION SIGNALS:
+- Sudden spike in inbound network traffic from multiple source IP addresses
+- Unusually high CPU, memory, or bandwidth utilization on public-facing servers
+- Legitimate users report slow response times or inability to access services
+- Firewall or Intrusion Detection System (IDS) generates alerts for excessive connection attempts
+- Large number of incomplete TCP handshakes (SYN flood) or repeated requests to the same resource
+- Monitoring tools detect abnormal traffic patterns or sustained traffic volumes above baseline
+
+## ANALYSIS:
+- Identify the targeted systems, applications, or services
+- Determine the type of DDoS attack (e.g., SYN flood, UDP flood, HTTP flood, DNS amplification)
+- Analyze traffic sources, protocols, ports, and request patterns
+- Determine whether the attack is volumetric, protocol-based, or application-layer
+- Assess the impact on service availability and business operations
+- Identify whether the attack is being used to distract from other malicious activity
+
+## CONTAINMENT:
+- Activate DDoS mitigation services or upstream traffic filtering
+- Apply firewall and router rules to block malicious IP addresses where appropriate
+- Enable rate limiting on affected services
+- Redirect traffic through a Content Delivery Network (CDN) or traffic scrubbing service
+- Isolate non-critical services if necessary to preserve essential business operations
+- Continuously monitor traffic to evaluate the effectiveness of mitigation measures
+
+## ERADICATION:
+- Remove temporary firewall or routing rules that are no longer required
+- Verify that all malicious traffic has ceased
+- Investigate whether any systems were compromised during the attack
+- Patch and harden exposed services to reduce future attack surfaces
+- Update intrusion detection and prevention signatures based on observed attack characteristics
+
+## POST-INCIDENT:
+- Review network traffic logs and DDoS mitigation effectiveness
+- Document attack duration, scale, affected services, and response actions
+- Update DDoS response procedures based on lessons learned
+- Test network resilience and incident response plans through future exercises
+- Review capacity planning and consider additional redundancy or mitigation services to improve resilience against future attacks
