@@ -2,6 +2,63 @@
 from pathlib import Path
 from ingest import ingest
 import ollama 
+import shutil
+import subprocess
+import sys
+
+def install_curl():
+    if shutil.which("curl"):
+        print("curl is already installed.")
+        return
+
+    print("Installing curl...")
+
+    try:
+        subprocess.run(
+            ["sudo", "apt", "update"],
+            check=True,
+        )
+
+        subprocess.run(
+            ["sudo", "apt", "install", "-y", "curl"],
+            check=True,
+        )
+
+        print("curl installed successfully.")
+
+    except subprocess.CalledProcessError:
+        print("Failed to install curl.")
+        sys.exit(1)
+
+def install_ollama():
+    if shutil.which("ollama"):
+        print("Ollama is already installed.")
+        return
+
+    print("Installing Ollama...")
+    try:
+        subprocess.run(
+            "curl -fsSL https://ollama.com/install.sh | sh",
+            shell=True,
+            check=True,
+        )
+        print("Ollama installed successfully.")
+
+    except subprocess.CalledProcessError:
+        print("Failed to install Ollama.")
+        sys.exit(1)
+
+def start_ollama():
+    try:
+        subprocess.Popen(
+            ["ollama", "serve"],
+            stdout=subprocess.DEVNULL,
+            stderr=subprocess.DEVNULL,
+        )
+        print("Started Ollama.")
+    except Exception:
+        print("Failed to start Ollama.")
+
 
 def check_ollama_models_installed():
     installed = {m.model for m in ollama.list().models}
@@ -18,16 +75,12 @@ def create_vector_database():
     if not Path("chroma_db").exists():
         ingest()  # Run the ingest.py script to create the vector database
 
-# def start_ollama():
-#     try:
-#         // Start the Ollama server here 
-#     except Exception as e:
-#         print(f"Error starting Ollama: {e}")
+    else:
+        print("Vector database already exists.")
 
 
+install_curl()
+install_ollama()
+start_ollama()
 check_ollama_models_installed()  # Check if Ollama models are installed
 create_vector_database()  # Create the vector database if it doesn't exist
-
-#need to ask if they expect ollama to already be installed on their NUC's 
-
-
