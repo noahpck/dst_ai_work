@@ -83,9 +83,22 @@ def create_vector_database():
         print("Vector database already exists.")
 
 
+def start_streamlit():
+    try:
+        subprocess.run(
+            ["streamlit", "run", "backend/app.py"],
+            check=True,
+            )
+        
+    except subprocess.CalledProcessError:
+        print("Failed to start Streamlit.")
+        sys.exit(1)
+
+
 install_curl()
 install_ollama()
 start_ollama()
 time.sleep(2)
 check_ollama_models_installed()  # Check if Ollama models are installed
 create_vector_database()  # Create the vector database if it doesn't exist
+start_streamlit()
