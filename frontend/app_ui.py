@@ -25,6 +25,8 @@ logs = st.text_area("Provide logs or ask questions for the agent: ")
 # Submit button
 if st.button("Submit"):
     with st.spinner("Processing response, please wait..."):
-        output = logs_output(logs)
+        (output, times) = logs_output(logs)
+    st.write(times)
     st.write(output)
+  
     
