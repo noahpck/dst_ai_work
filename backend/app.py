@@ -33,7 +33,6 @@ def logs_output(query: str):
         response = llm.invoke(prompt) 
         end_time = time.perf_counter()
         execution_time = end_time - start_time
-       
                 
     except Exception as e:
         print(e)

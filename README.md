@@ -1,5 +1,13 @@
 # Local RAG-Powered Incident Response Assistant
 
+
+## What is RAG and a Vector Database
+
+RAG, standing for Retrieval Augmented Generation, is the process of optimising the output of a large language model so it references an authoritative knowledge base outside its training data before generating a response.
+In order for the LLM to access this authoritative knowledge, it uses a vector database. A vector database is unlike a normal database. It's a specialised type of data storage designed to understand the meaning and context of information, rather than just matching exact keywords.
+It does this by storing vector embeddings. Vector embeddings are a way to turn real world information, like words or sentences, into lists of numbers, so that computers can understand what they actually mean.
+
+
 ## Overview and How it Works
 This is a RAG-powered incident response assistant. The purpose of this assistant is to respond to cybersecurity-related queries. It works by utilising a vector database that stores vector embeddings generated from various incident response playbooks. These vector embeddings are numerical arrays that capture the semantic meaning of the playbooks' text.
 
