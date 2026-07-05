@@ -1,6 +1,6 @@
 #this is to automate setting everything up on a new NUC
 from pathlib import Path
-from ingest import ingest
+from backend.ingest import ingest
 import ollama 
 import shutil
 import subprocess
