@@ -9,12 +9,17 @@ div[data-testid="stTextInput"] {
 }
 </style>
 """)
+image_dir = Path(__file__).resolve().parent.parent / "images"
+st.set_page_config(
+    page_title="DST AI Assistant",
+    page_icon=image_dir / "logo.jpg"
+)
+
 
 # Add the project root to Python's path
 sys.path.append(str(Path(__file__).resolve().parent.parent))
 from backend.app import logs_output
 
-image_dir = Path(__file__).resolve().parent.parent / "images"
 
 with st.container(horizontal=True):
     st.image(image_dir / "logo.jpg", width=50)
