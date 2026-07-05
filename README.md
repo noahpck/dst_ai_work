@@ -1,7 +1,7 @@
 # Local RAG-Powered Incident Response Assistant
 
 
-## What is RAG and a Vector Database
+## What is RAG and Vector Databases
 
 RAG, standing for Retrieval Augmented Generation, is the process of optimising the output of a large language model so it references an authoritative knowledge base outside its training data before generating a response.
 In order for the LLM to access this authoritative knowledge, it uses a vector database. A vector database is unlike a normal database. It's a specialised type of data storage designed to understand the meaning and context of information, rather than just matching exact keywords.
