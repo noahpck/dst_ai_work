@@ -12,6 +12,8 @@ This is a RAG-powered incident response assistant. The purpose of this assistant
 
 Once the vector database has been initialised, the Ollama large language model (ollama3.1:8b) is set up and ready to receive queries. Before sending the structured prompt to the LLM, the system first retrieves the most semantically relevant chunks of data related to the submitted query using LangChain's `similarity_search()` method. These retrieved chunks are then included in the prompt provided to the LLM. Finally, we `invoke()` the llm to generate a response, which is displayed in the frontend.
 
+If you'd like to add or remove playbooks and the `chroma_db` directory already exists, you will need to delete that directory and rerun `start.py` to recreate the vector database with the updated list of playbooks.
+
 ## How to Use
 You can submit any questions related to potential cyberattacks or provide network logs to determine whether the incident response assistant detects suspicious activity that may indicate a cyberattack. If malicious activity is identified, the assistant will provide guidance on appropriate mitigation and response steps.
 

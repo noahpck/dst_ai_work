@@ -23,17 +23,13 @@ def ingest():   #called from within the setup.py script to create the vector dat
     chunk_size = int(os.getenv("CHUNK_SIZE"))
     chunk_overlap = int(os.getenv("CHUNK_OVERLAP"))
 
-
-
-    #Header Splitter
-
+    #Header Splitter and Character Splitter
     headers_to_split_on = [
         ("#", "Heading 1"),
-        ("##", "Heading 2"),
-        ("###", "Heading 3"),
+        ("##", "Heading 2")
     ]
 
-    markdown_splitter = MarkdownHeaderTextSplitter(
+    header_splitter = MarkdownHeaderTextSplitter(
         headers_to_split_on=headers_to_split_on
     )
 
@@ -56,7 +52,7 @@ def ingest():   #called from within the setup.py script to create the vector dat
 
         loader = TextLoader(str(file), encoding="utf-8")
         raw_document = loader.load()[0]
-        header_docs = markdown_splitter.split_text(raw_document.page_content)
+        header_docs = header_splitter.split_text(raw_document.page_content)
         chunks = character_splitter.split_documents(header_docs)
 
         # Add source filename metadata

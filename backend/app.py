@@ -2,7 +2,6 @@ import os
 from langchain_chroma import Chroma
 from langchain_ollama import OllamaEmbeddings, ChatOllama
 from dotenv import load_dotenv
-import ollama
 import time
 
 load_dotenv()
@@ -16,7 +15,7 @@ vectordb = Chroma(
 )    
 
 llm = ChatOllama(model="llama3.1:8b")
-def logs_output(query: str):
+def generate_incident_response(query: str):
 
     results = vectordb.similarity_search(query, k=3) 
     context = "\n".join(doc.page_content for doc in results)
